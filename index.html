@@ -15,7 +15,31 @@
                 (Firestore).</p>
         </header>
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Sections will go here -->
+            <section class="lg:col-span-1 space-y-4">
+                <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
+                    <h2 class="font-semibold mb-2">Controls</h2>
+                    <div class="flex items-center gap-2 mb-3">
+                        <label class="text-sm text-slate-300 w-28">Duration</label>
+                        <div class="flex items-center gap-2">
+                            <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="1">1
+                                min</button>
+                            <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="5">5
+                                min</button>
+                            <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="10">10
+                                min</button>
+                            <input id="customDuration" type="number" min="0.1" step="0.1" placeholder="Custom min"
+                                class="w-20 px-2 py-1 rounded-md bg-slate-900 text-sm" />
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="startBtn"
+                            class="px-4 py-2 bg-emerald-500 rounded-lg text-slate-900 font-semibold hover:brightness-110">Start
+                            Test</button>
+                        <button id="restartBtn"
+                            class="px-4 py-2 bg-slate-600 rounded-lg text-slate-200 hover:brightness-110">Reset</button>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 </body>
