@@ -2,137 +2,150 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Advanced Typing Test</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Advanced Typing Test</title>
 
-    <!-- Linking CSS -->
-    <link rel="stylesheet" href="styles.css" />
+  <!-- Tailwind CDN (for quick demo). For production, build Tailwind locally. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // Using modular SDK v9+. We'll load the actual initialization in script.js
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body class="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 min-h-screen text-slate-100">
-    <div class="max-w-6xl mx-auto p-6">
-        <!-- Header -->
-        <header class="mb-6">
-            <h1 class="text-3xl font-extrabold tracking-tight">Typing Trainer — Advanced</h1>
-            <p class="text-slate-400 mt-1">Real-time WPM, accuracy, keyboard guidance, and persistent best score
-                (Firestore).</p>
-        </header>
+  <div class="max-w-6xl mx-auto p-6">
+    <header class="mb-6">
+      <h1 class="text-3xl font-extrabold tracking-tight">Typing Trainer — Advanced</h1>
+      <p class="text-slate-400 mt-1">Real-time WPM, accuracy, keyboard guidance, and persistent best score (Firestore).
+      </p>
+    </header>
 
-        <!-- Main grid -->
-        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left: Controls & stats -->
+      <section class="lg:col-span-1 space-y-4">
+        <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
+          <h2 class="font-semibold mb-2">Controls</h2>
 
-            <!-- Left column: Controls + Live Metrics -->
-            <section class="lg:col-span-1 space-y-4">
-
-                <!-- Controls panel -->
-                <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
-                    <h2 class="font-semibold mb-2">Controls</h2>
-                    <div class="flex items-center gap-2 mb-3">
-                        <label class="text-sm text-slate-300 w-28">Duration</label>
-                        <div class="flex items-center gap-2">
-                            <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="1">1
-                                min</button>
-                            <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="5">5
-                                min</button>
-                            <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="10">10
-                                min</button>
-                            <input id="customDuration" type="number" min="0.1" step="0.1" placeholder="Custom min"
-                                class="w-20 px-2 py-1 rounded-md bg-slate-900 text-sm" />
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button id="startBtn"
-                            class="px-4 py-2 bg-emerald-500 rounded-lg text-slate-900 font-semibold hover:brightness-110">Start
-                            Test</button>
-                        <button id="restartBtn"
-                            class="px-4 py-2 bg-slate-600 rounded-lg text-slate-200 hover:brightness-110">Reset</button>
-                    </div>
-                </div>
-
-                <!-- Live Metrics panel -->
-                <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
-                    <h2 class="font-semibold mb-2">Live Metrics</h2>
-                    <div class="grid grid-cols-3 gap-3 text-center">
-                        <div class="p-3 rounded-lg bg-slate-700">
-                            <div class="text-xs text-slate-300">Time</div>
-                            <div id="timeDisplay" class="text-2xl font-bold">00:00</div>
-                        </div>
-                        <div class="p-3 rounded-lg bg-slate-700">
-                            <div class="text-xs text-slate-300">WPM</div>
-                            <div id="wpmDisplay" class="text-2xl font-bold">0</div>
-                        </div>
-                        <div class="p-3 rounded-lg bg-slate-700">
-                            <div class="text-xs text-slate-300">Accuracy</div>
-                            <div id="accDisplay" class="text-2xl font-bold">100%</div>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <div class="text-xs text-slate-300 mb-1">Best WPM (all-time)</div>
-                        <div id="bestDisplay" class="text-xl font-semibold">—</div>
-                        <div id="authStatus" class="text-xs text-slate-400 mt-2">Connecting to Firestore...</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Middle/Right column: Typing Area -->
-            <section class="lg:col-span-2">
-
-                <!-- Typing Area -->
-                <div class="card bg-slate-800 rounded-2xl p-6 shadow-lg">
-                    <div id="textContainer" class="prose prose-invert max-w-none leading-relaxed text-lg"
-                        style="min-height: 150px;">
-                        <div id="renderedText" class="select-none"></div>
-                    </div>
-                    <div class="mt-4 flex items-center gap-3">
-                        <label class="text-sm text-slate-300">Type here:</label>
-                        <div class="flex-1">
-                            <div id="typingBox" tabindex="0"
-                                class="w-full p-3 bg-slate-900 rounded-md outline-none focus:ring-2 focus:ring-emerald-500 cursor-text">
-                                <div id="typingHint" class="text-sm text-slate-400">Click here or press the Start
-                                    button, then type.</div>
-                                <input id="hiddenInput" autocomplete="off" autocorrect="off" autocapitalize="off"
-                                    spellcheck="false" class="opacity-0 absolute pointer-events-none" />
-                            </div>
-                        </div>
-                        <div class="text-sm text-slate-400">Progress: <span id="progressPct">0%</span></div>
-                    </div>
-                </div>
-
-                <!-- Digital Keyboard -->
-                <div class="mt-6 card bg-slate-800 rounded-2xl p-6 shadow-lg">
-                    <h3 class="font-semibold mb-3">Interactive Keyboard</h3>
-                    <div id="keyboard" class="grid gap-2 select-none touch-none">
-                        <!-- keyboard rows rendered by script -->
-                    </div>
-                </div>
-            </section>
-
-            <div id="resultModal"
-                class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-
-
-        </main>
-
-        <!-- Results Modal -->
-        <div class="bg-slate-900 rounded-2xl p-6 w-11/12 max-w-md">
-            <h3 class="text-2xl font-bold mb-2">Test Results</h3>
-            <div class="space-y-2 text-slate-300">
-                <div>Final WPM: <span id="finalWPM" class="font-semibold text-emerald-400">0</span></div>
-                <div>Accuracy: <span id="finalAcc" class="font-semibold text-amber-400">0%</span></div>
-                <div>All-time Best WPM: <span id="finalBest" class="font-semibold text-cyan-400">—</span></div>
+          <div class="flex items-center gap-2 mb-3">
+            <label class="text-sm text-slate-300 w-28">Duration</label>
+            <div class="flex items-center gap-2">
+              <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="1">1 min</button>
+              <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="5">5 min</button>
+              <button class="duration-btn px-3 py-1 rounded-md bg-slate-700 text-sm" data-min="10">10 min</button>
+              <input id="customDuration" type="number" min="0.1" step="0.1" placeholder="Custom min"
+                class="w-20 px-2 py-1 rounded-md bg-slate-900 text-sm" />
             </div>
-            <div class="mt-4 flex gap-2">
-                <button id="modalRestart"
-                    class="flex-1 px-4 py-2 bg-emerald-500 rounded-lg text-slate-900 font-semibold">Restart</button>
-                <button id="modalClose" class="flex-1 px-4 py-2 bg-slate-700 rounded-lg text-slate-200">Close</button>
-            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button id="startBtn"
+              class="px-4 py-2 bg-emerald-500 rounded-lg text-slate-900 font-semibold hover:brightness-110">Start
+              Test</button>
+            <button id="restartBtn"
+              class="px-4 py-2 bg-slate-600 rounded-lg text-slate-200 hover:brightness-110">Reset</button>
+          </div>
         </div>
-    </div>
-    </div>
 
-    <!-- Linking JS -->
-    <script src="script.js"></script>
+        <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
+          <h2 class="font-semibold mb-2">Live Metrics</h2>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="p-3 rounded-lg bg-slate-700">
+              <div class="text-xs text-slate-300">Time</div>
+              <div id="timeDisplay" class="text-2xl font-bold">00:00</div>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-700">
+              <div class="text-xs text-slate-300">WPM</div>
+              <div id="wpmDisplay" class="text-2xl font-bold">0</div>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-700">
+              <div class="text-xs text-slate-300">Accuracy</div>
+              <div id="accDisplay" class="text-2xl font-bold">100%</div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="text-xs text-slate-300 mb-1">Best WPM (all-time)</div>
+            <div id="bestDisplay" class="text-xl font-semibold">—</div>
+            <div id="authStatus" class="text-xs text-slate-400 mt-2">Connecting to Firestore...</div>
+          </div>
+        </div>
+
+        <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
+          <h2 class="font-semibold mb-2">Tips</h2>
+          <ul class="list-disc list-inside text-slate-400 text-sm space-y-1">
+            <li>Use the keyboard at the bottom to learn key placement — it highlights the next expected key.</li>
+            <li>Accuracy is recalculated live; correct characters are green, mistakes red.</li>
+            <li>You can press Backspace to correct typed characters during the test.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Middle: Test area -->
+      <section class="lg:col-span-2">
+        <div class="card bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <div id="textContainer" class="prose prose-invert max-w-none leading-relaxed text-lg"
+            style="min-height: 150px;">
+            <!-- Paragraph will be rendered here as per-character spans and per-word spans -->
+            <div id="renderedText" class="select-none"></div>
+          </div>
+
+          <div class="mt-4 flex items-center gap-3">
+            <label class="text-sm text-slate-300">Type here:</label>
+            <div class="flex-1">
+              <!-- We'll use a hidden input to capture keys; visible focus box for accessibility -->
+              <div id="typingBox" tabindex="0"
+                class="w-full p-3 bg-slate-900 rounded-md outline-none focus:ring-2 focus:ring-emerald-500 cursor-text">
+                <div id="typingHint" class="text-sm text-slate-400">Click here or press the Start button, then type.
+                </div>
+                <!-- hidden input to capture keystrokes -->
+                <input id="hiddenInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                  class="opacity-0 absolute pointer-events-none" />
+              </div>
+            </div>
+
+            <div class="text-sm text-slate-400">Progress: <span id="progressPct">0%</span></div>
+          </div>
+        </div>
+
+        <!-- Digital keyboard -->
+        <div class="mt-6 card bg-slate-800 rounded-2xl p-6 shadow-lg">
+          <h3 class="font-semibold mb-3">Interactive Keyboard</h3>
+          <div id="keyboard" class="grid gap-2 select-none touch-none">
+            <!-- keyboard rows rendered by script -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Results Modal -->
+  <div id="resultModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-slate-900 rounded-2xl p-6 w-11/12 max-w-md">
+      <h3 class="text-2xl font-bold mb-2">Test Results</h3>
+      <div class="space-y-2 text-slate-300">
+        <div>Final WPM: <span id="finalWPM" class="font-semibold text-emerald-400">0</span></div>
+        <div>Accuracy: <span id="finalAcc" class="font-semibold text-amber-400">0%</span></div>
+        <div>All-time Best WPM: <span id="finalBest" class="font-semibold text-cyan-400">—</span></div>
+      </div>
+
+      <div class="mt-4 flex gap-2">
+        <button id="modalRestart"
+          class="flex-1 px-4 py-2 bg-emerald-500 rounded-lg text-slate-900 font-semibold">Restart</button>
+        <button id="modalClose" class="flex-1 px-4 py-2 bg-slate-700 rounded-lg text-slate-200">Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- App script -->
+  <script src="script.js"></script>
+
 </body>
 
 </html>

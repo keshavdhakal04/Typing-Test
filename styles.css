@@ -1,3 +1,5 @@
+/* styles.css - additional styling beyond Tailwind (kept minimal) */
+
 /* Per-character styles (green/red/neutral) */
 .char {
   transition: color 120ms, background-color 120ms;
@@ -8,28 +10,31 @@
 .char.incorrect {
   color: #fca5a5; /* red-300 */
 }
-.char.current-char {
-  text-decoration: underline 2px rgba(56,189,248,0.3);
-}
-
-/* Word highlight and duration button styles*/
 .word.current {
-  background: rgba(34,197,94,0.06);
+  background: rgba(34,197,94,0.06); /* faint green */
   border-radius: 6px;
   padding: 0 2px;
 }
 
+/* Typing caret effect on current char */
+.char.current-char {
+  text-decoration: underline 2px rgba(56,189,248,0.3);
+}
+
+/* Highlighted duration button */
 .duration-btn.active {
-  background-color: #16a34a;
-  color: #f8fafc;
+  background-color: #16a34a; /* emerald-600 */
+  color: #f8fafc; /* text-slate-100 */
 }
 
 /* Keyboard key styling */
 .key {
   user-select: none;
+  -webkit-user-select: none;
   padding: 8px 10px;
   border-radius: 6px;
-  background: #0f172a;
+  background: #0f172a; /* slate-900 */
+  box-shadow: inset 0 -2px 0 rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.02);
   display: inline-flex;
   align-items: center;
@@ -52,3 +57,33 @@
   transform: translateY(1px);
 }
 
+
+/* Make prose text wrap nicely */
+.prose {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Results modal display handled by Tailwind utilities; simple helper */
+#resultModal .hidden {
+  display: none;
+}
+
+#textContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#renderedText {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#keyboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
