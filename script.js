@@ -1,5 +1,9 @@
 // script.js
 let startTime = null;
+let chars = [];
+let currentIndex = 0;
+let correctChars = 0;
+let totalTyped = 0;
 
 // DOM elements
 const startBtn = document.getElementById("startBtn");
@@ -59,4 +63,22 @@ function highlightKey(char) {
 
   const keyDiv = document.querySelector(`.key[data-key="${keyChar}"]`);
   if(keyDiv) keyDiv.classList.add("highlight");
+}
+
+function renderParagraph(text) {
+  textContainer.innerHTML = "";
+  chars = [];
+  text.split("").forEach((ch, i) => {
+    const span = document.createElement("span");
+    span.textContent = ch;
+    span.classList.add("char");
+    if(i === 0) span.classList.add("current-char");
+    textContainer.appendChild(span);
+    chars.push(span);
+  });
+  currentIndex = 0;
+  correctChars = 0;
+  totalTyped = 0;
+  highlightKey(chars[0].textContent);
+  progressPct.textContent = "0%";
 }
