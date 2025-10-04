@@ -2,8 +2,6 @@
 
 A **real-time typing trainer** with WPM, accuracy, keyboard guidance, and persistent best score. Built with **HTML, Tailwind CSS, and JavaScript**, with optional Firebase integration.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ## Features
 
 - **Real-time Metrics**: Displays time elapsed, WPM, and accuracy.  
@@ -14,8 +12,6 @@ A **real-time typing trainer** with WPM, accuracy, keyboard guidance, and persis
 - **Results Modal**: Shows final WPM, accuracy, and all-time best score.  
 - **Responsive Design**: Works on desktop and mobile devices.  
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ## Installation
 
 1. Clone the repository:
@@ -25,7 +21,6 @@ cd typing-test
 
 2. Open index.html in a browser.
    
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Usage
 
@@ -36,7 +31,6 @@ cd typing-test
 5. At the end, the results modal displays your final stats.
 6. Click Restart to try again.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Technologies
 
@@ -44,12 +38,3 @@ cd typing-test
 2. Tailwind CSS (CDN)
 3. Vanilla JavaScript (ES6)
 4. Firebase (optional, modular SDK v9)
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## Project Structure
-typing-test/
-│
-├─ index.html          # Main HTML structure
-├─ styles.css          # Custom styling + Tailwind overrides
-└─ script.js           # Typing logic, keyboard, metrics, modal handling
