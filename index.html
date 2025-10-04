@@ -105,7 +105,27 @@
                 </div>
             </section>
 
+            <div id="resultModal"
+                class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+
+
         </main>
+
+        <!-- Results Modal -->
+        <div class="bg-slate-900 rounded-2xl p-6 w-11/12 max-w-md">
+            <h3 class="text-2xl font-bold mb-2">Test Results</h3>
+            <div class="space-y-2 text-slate-300">
+                <div>Final WPM: <span id="finalWPM" class="font-semibold text-emerald-400">0</span></div>
+                <div>Accuracy: <span id="finalAcc" class="font-semibold text-amber-400">0%</span></div>
+                <div>All-time Best WPM: <span id="finalBest" class="font-semibold text-cyan-400">—</span></div>
+            </div>
+            <div class="mt-4 flex gap-2">
+                <button id="modalRestart"
+                    class="flex-1 px-4 py-2 bg-emerald-500 rounded-lg text-slate-900 font-semibold">Restart</button>
+                <button id="modalClose" class="flex-1 px-4 py-2 bg-slate-700 rounded-lg text-slate-200">Close</button>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 
