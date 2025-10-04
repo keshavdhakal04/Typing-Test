@@ -11,3 +11,16 @@
 .char.current-char {
   text-decoration: underline 2px rgba(56,189,248,0.3);
 }
+
+/* Word highlight and duration button styles*/
+.word.current {
+  background: rgba(34,197,94,0.06);
+  border-radius: 6px;
+  padding: 0 2px;
+}
+
+.duration-btn.active {
+  background-color: #16a34a;
+  color: #f8fafc;
+}
+
