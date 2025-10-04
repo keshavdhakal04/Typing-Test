@@ -49,3 +49,14 @@ function renderKeyboard() {
     keyboardContainer.appendChild(rowDiv);
   });
 }
+
+function highlightKey(char) {
+  document.querySelectorAll(".key").forEach(k => k.classList.remove("highlight"));
+  if(!char) return;
+
+  let keyChar = char.toLowerCase();
+  if(keyChar === " ") keyChar = "space";
+
+  const keyDiv = document.querySelector(`.key[data-key="${keyChar}"]`);
+  if(keyDiv) keyDiv.classList.add("highlight");
+}
