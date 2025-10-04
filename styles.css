@@ -24,3 +24,31 @@
   color: #f8fafc;
 }
 
+/* Keyboard key styling */
+.key {
+  user-select: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,0.02);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  font-size: 14px;
+  color: #e6eef7;
+}
+.key.highlight {
+  background: linear-gradient(180deg, rgba(34,197,94,0.25), rgba(34,197,94,0.15));
+  border-color: rgba(34,197,94,0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.key.wide { min-width: 60px; }
+.key.space { min-width: 300px; }
+.key.pressed {
+  background-color: rgba(59,130,246,0.5);
+  transform: translateY(1px);
+}
+
