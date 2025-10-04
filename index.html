@@ -22,7 +22,7 @@
             <!-- Left column: Controls + Live Metrics -->
             <section class="lg:col-span-1 space-y-4">
 
-                 <!-- Controls panel -->
+                <!-- Controls panel -->
                 <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
                     <h2 class="font-semibold mb-2">Controls</h2>
                     <div class="flex items-center gap-2 mb-3">
@@ -49,31 +49,33 @@
 
                 <!-- Live Metrics panel -->
                 <div class="card bg-slate-800 rounded-2xl p-4 shadow-lg">
-                <h2 class="font-semibold mb-2">Live Metrics</h2>
-                <div class="grid grid-cols-3 gap-3 text-center">
-                    <div class="p-3 rounded-lg bg-slate-700">
-                        <div class="text-xs text-slate-300">Time</div>
-                        <div id="timeDisplay" class="text-2xl font-bold">00:00</div>
+                    <h2 class="font-semibold mb-2">Live Metrics</h2>
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div class="p-3 rounded-lg bg-slate-700">
+                            <div class="text-xs text-slate-300">Time</div>
+                            <div id="timeDisplay" class="text-2xl font-bold">00:00</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-700">
+                            <div class="text-xs text-slate-300">WPM</div>
+                            <div id="wpmDisplay" class="text-2xl font-bold">0</div>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-700">
+                            <div class="text-xs text-slate-300">Accuracy</div>
+                            <div id="accDisplay" class="text-2xl font-bold">100%</div>
+                        </div>
                     </div>
-                    <div class="p-3 rounded-lg bg-slate-700">
-                        <div class="text-xs text-slate-300">WPM</div>
-                        <div id="wpmDisplay" class="text-2xl font-bold">0</div>
-                    </div>
-                    <div class="p-3 rounded-lg bg-slate-700">
-                        <div class="text-xs text-slate-300">Accuracy</div>
-                        <div id="accDisplay" class="text-2xl font-bold">100%</div>
+                    <div class="mt-4">
+                        <div class="text-xs text-slate-300 mb-1">Best WPM (all-time)</div>
+                        <div id="bestDisplay" class="text-xl font-semibold">—</div>
+                        <div id="authStatus" class="text-xs text-slate-400 mt-2">Connecting to Firestore...</div>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <div class="text-xs text-slate-300 mb-1">Best WPM (all-time)</div>
-                    <div id="bestDisplay" class="text-xl font-semibold">—</div>
-                    <div id="authStatus" class="text-xs text-slate-400 mt-2">Connecting to Firestore...</div>
-                </div>
-            </div>
             </section>
-            
+
             <!-- Middle/Right column: Typing Area -->
             <section class="lg:col-span-2">
+
+                <!-- Typing Area -->
                 <div class="card bg-slate-800 rounded-2xl p-6 shadow-lg">
                     <div id="textContainer" class="prose prose-invert max-w-none leading-relaxed text-lg"
                         style="min-height: 150px;">
@@ -91,6 +93,14 @@
                             </div>
                         </div>
                         <div class="text-sm text-slate-400">Progress: <span id="progressPct">0%</span></div>
+                    </div>
+                </div>
+
+                <!-- Digital Keyboard -->
+                <div class="mt-6 card bg-slate-800 rounded-2xl p-6 shadow-lg">
+                    <h3 class="font-semibold mb-3">Interactive Keyboard</h3>
+                    <div id="keyboard" class="grid gap-2 select-none touch-none">
+                        <!-- keyboard rows rendered by script -->
                     </div>
                 </div>
             </section>
