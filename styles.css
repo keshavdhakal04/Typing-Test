@@ -1,0 +1,13 @@
+/* Per-character styles (green/red/neutral) */
+.char {
+  transition: color 120ms, background-color 120ms;
+}
+.char.correct {
+  color: #86efac; /* green-300 */
+}
+.char.incorrect {
+  color: #fca5a5; /* red-300 */
+}
+.char.current-char {
+  text-decoration: underline 2px rgba(56,189,248,0.3);
+}
