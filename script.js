@@ -20,3 +20,32 @@ const finalAcc = document.getElementById("finalAcc");
 const finalBest = document.getElementById("finalBest");
 const modalRestart = document.getElementById("modalRestart");
 const modalClose = document.getElementById("modalClose");
+
+// Keyboard layout (simplified)
+const keyboardLayout = [
+  ["`","1","2","3","4","5","6","7","8","9","0","-","=","Backspace"],
+  ["Tab","q","w","e","r","t","y","u","i","o","p","[","]","\\"],
+  ["CapsLock","a","s","d","f","g","h","j","k","l",";","'","Enter"],
+  ["Shift","z","x","c","v","b","n","m",",",".","/","Shift"],
+  ["Control","Alt","Space","Alt","Control"]
+];
+
+function renderKeyboard() {
+  keyboardContainer.innerHTML = "";
+  keyboardLayout.forEach(row => {
+    const rowDiv = document.createElement("div");
+    rowDiv.classList.add("flex","justify-center","mb-1");
+    row.forEach(key => {
+      const keyDiv = document.createElement("div");
+      keyDiv.classList.add("key");
+      if(["Backspace","Tab","CapsLock","Enter","Shift","Control","Alt","Space"].includes(key)){
+        keyDiv.classList.add("wide");
+        if(key === "Space") keyDiv.classList.add("space");
+      }
+      keyDiv.textContent = key;
+      keyDiv.dataset.key = key.toLowerCase();
+      rowDiv.appendChild(keyDiv);
+    });
+    keyboardContainer.appendChild(rowDiv);
+  });
+}
